@@ -246,22 +246,12 @@ function createApp (doc, cb) {
     app.prepare();
     revpos = app.doc._rev ? parseInt(app.doc._rev.slice(0,app.doc._rev.indexOf('-'))) : 0;
     
-    var coffeeCompile;
-    var coffeeExt = /\.(lit)?coffee$/;
-    try{
-      coffeeCompile = require('coffee-script');
-    } catch(e){}
-
     app.doc.__attachments.forEach(function (att) {
       watch.walk(att.root, {ignoreDotFiles:true}, function (err, files) {
         pending_dirs += 1;
         var pending_files = Object.keys(files).length;
         for (i in files) { (function (f) {
           fs.readFile(f, function (err, data) {
-            if(f.match(coffeeExt)){
-              data = new Buffer( coffeeCompile.compile(data.toString()) );
-              f = f.replace(coffeeExt,'.js');
-            }
             f = f.replace(att.root, att.prefix || '').replace(/\\/g,"/");
             if (f[0] == '/') f = f.slice(1)
             if (!err) {

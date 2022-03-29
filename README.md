@@ -139,10 +139,16 @@ happy with the result simply do:
 
 ## Changes
 
-### 0.11.2
+### 0.11.3 - 20220330
+
+Remove support for coffeescript
+
+Remove dependency: coffee-script
+
+### 0.11.2 - 20220330
 
 Remove dependency: request
 
-### 0.11.1
+### 0.11.1 - 20220330
 
 Update dependency: nano
