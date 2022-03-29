@@ -14,15 +14,14 @@ install it locally and use `npx` to run it from the command line.
 To install the couchapp command so that it is available globally:
 
 <pre>
-$ git clone https://github.com/ig3/node.couchapp.js.git
-$ cd node.couchapp.js
-$ npm install
-$ npm install -g
+$ npm install -g @ig3/node.couchapp.js
 </pre>
 
-To install the couchapp package locally, link the clone of the repository
-into the dependent package using `npm link`.
+To install the couchapp package locally in a package:
 
+<pre>
+$ npm install @ig3/node.couchapp.js
+</pre>
 
 <pre>
 $ couchapp help
@@ -138,6 +137,10 @@ happy with the result simply do:
     couchapp push app.js http://localhost:5984/example_db
 
 ## Changes
+
+### 0.11.4 - 20220330
+
+Update README: installation
 
 ### 0.11.3 - 20220330
 
