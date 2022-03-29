@@ -1,5 +1,5 @@
 {
-  "name": "couchapp",
+  "name": "@ig3/couchapp",
   "description": "Utilities for building CouchDB applications.",
   "tags": [
     "couchdb",
@@ -28,6 +28,6 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mikeal/node.couchapp.js"
+    "url": "https://github.com/ig3/node.couchapp.js"
   }
 }

@@ -1,15 +1,28 @@
-# Installation
+# @ig3/couchapp
 
-Install node.
+@ig3/couchapp is a command line tool for building and deploying couchapps.
 
-Install npm.
+It is based on
+[node.couchapp.js](https://github.com/mikeal/node.couchapp.js).
+
+## Installation
+
+@ig3/couchapp should be installed globally and locally in the package that
+uses it. At least, that's what the old docs say. Now, it should suffice to
+install it locally and use `npx` to run it from the command line.
+
+To install the couchapp command so that it is available globally:
 
 <pre>
-$ git clone repo
+$ git clone https://github.com/ig3/node.couchapp.js.git
 $ cd node.couchapp.js
 $ npm install
-$ npm link .
+$ npm install -g
 </pre>
+
+To install the couchapp package locally, link the clone of the repository
+into the dependent package using `npm link`.
+
 
 <pre>
 $ couchapp help
