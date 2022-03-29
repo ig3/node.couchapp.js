@@ -1,3 +1,7 @@
+// Copyright 2022 Ian Goodacre
+//
+// This is a derivative of original work by Mikeal Rogers.
+//
 // Copyright 2015 Mikeal Rogers
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +19,6 @@
 var path = require('path')
   , fs = require('fs')
   , watch = require('watch')
-  , request = require('request')
   , crypto = require('crypto')
   , mimetypes = require('./mimetypes')
   , spawn = require('child_process').spawn
@@ -25,6 +28,54 @@ var path = require('path')
 var h = function () {
   return JSON.parse(JSON.stringify({'content-type':'application/json', 'accept-type':'application/json'}));
 }
+
+// The request pacakge is deprecated and unmaintained for several years.
+// See: https://github.com/request/request/issues/3142
+// This is a simple replacement, adequate for immediate needs
+const request = function (opts, callback) {
+  const agent = (opts.uri.toLowerCase().startsWith('https')) ? 
+    require('https') : require('http');
+
+  const url = require('url').parse(opts.uri);
+
+  const requestOptions = {
+    host: url.hostname,
+    port: url.port,
+    method: (opts.method && opts.method === 'PUT') ? 'put' : 'get',
+    path: url.pathname + (url.search || ''),
+    auth: url.auth
+  };
+
+  console.log('requestOptions: ', requestOptions);
+
+  const req = agent.request(requestOptions, (res) => {
+    const bufs = [];
+    let len = 0;
+    res.on('data', chunk => {
+      bufs[bufs.length] = chunk;
+      len += chunk.length;
+    });
+    res.on('end', () => {
+      console.log('done', Buffer.concat(bufs, len).toString());
+      callback(null, res, Buffer.concat(bufs, len).toString());
+    });
+  });
+
+  req.on('error', function (err) {
+    console.log('error: ', err);
+    callback(err);
+  });
+  if (opts.headers) {
+    Object.keys(opts.headers).forEach(header => {
+      req.setHeader(header, opts.headers[header]);
+    });
+  }
+  if (opts.body) {
+    req.setHeader('content-length', Buffer.byteLength(opts.body));
+    req.write(opts.body);
+  }
+  req.end();
+};
   
 /**
  * Recursively load directory contents into ddoc

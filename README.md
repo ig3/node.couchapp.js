@@ -136,3 +136,13 @@ Now you can access your couchapp at http://localhost:3000/ . Code, hack and when
 happy with the result simply do:
 
     couchapp push app.js http://localhost:5984/example_db
+
+## Changes
+
+### 0.11.2
+
+Remove dependency: request
+
+### 0.11.1
+
+Update dependency: nano
