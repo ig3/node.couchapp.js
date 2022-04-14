@@ -1,5 +1,15 @@
 # @ig3/couchapp
 
+DEPRECATED: while it will still work witch CouchDB 3.x, support for `vhost`
+and rewrite rules will not be included in CouchDB 4.x and, therefore,
+couchapps will not work with CouchDB 4.x.
+
+An alternative is to use nginx or equivalent to proxy access to the
+application, serve all the static content (the couchapp attachments)
+directly from nginx and implemnt all the rewrite rules in nginx, proxying
+only the database access to the CouchDB server. This is, in many ways,
+simpler than implementing a couchapp.
+
 @ig3/couchapp is a command line tool for building and deploying couchapps.
 
 It is based on
